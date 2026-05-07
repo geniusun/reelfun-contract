@@ -88,4 +88,36 @@ pub enum ContractError {
 
     #[msg("Invalid Migration Authority")]
     InvalidMigrationAuthority,
+
+    // Stake errors
+    #[msg("Unauthorized")]
+    Unauthorized,
+    #[msg("Invalid window duration (must be 24-48 hours)")]
+    InvalidWindowDuration,
+    #[msg("Window not ready to close")]
+    WindowNotReady,
+    #[msg("Stake window is still open")]
+    WindowStillOpen,
+    #[msg("Stake window is not open")]
+    WindowNotOpen,
+    #[msg("Invalid stake window")]
+    InvalidStakeWindow,
+    #[msg("Invalid bonding curve")]
+    InvalidBondingCurve,
+    #[msg("Invalid stake amount")]
+    InvalidStakeAmount,
+    #[msg("Invalid lock days (must be 1-365)")]
+    InvalidLockDays,
+    #[msg("Invalid prompt (must be 1-500 chars)")]
+    InvalidPrompt,
+    #[msg("Already unlocked")]
+    AlreadyUnlocked,
+    #[msg("Stake still locked")]
+    StillLocked,
+    #[msg("Deposit already refunded")]
+    DepositAlreadyRefunded,
+    #[msg("Refund not ready yet")]
+    RefundNotReady,
+    #[msg("Arithmetic overflow")]
+    Overflow,
 }

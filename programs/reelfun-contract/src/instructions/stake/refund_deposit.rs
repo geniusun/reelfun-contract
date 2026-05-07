@@ -32,7 +32,7 @@ pub struct RefundDeposit<'info> {
     pub clock: Sysvar<'info, Clock>,
 }
 
-impl RefundDeposit {
+impl RefundDeposit<'_> {
     pub fn handler(ctx: Context<RefundDeposit>, params: RefundDepositParams) -> Result<()> {
         let clock = Clock::get()?;
         let user_stake = &mut ctx.accounts.user_stake;
@@ -49,10 +49,11 @@ impl RefundDeposit {
         );
 
         // Transfer deposit back to user from stake_window account
+        let episode_id_bytes = stake_window.episode_id.to_le_bytes();
         let seeds = &[
             StakeWindow::SEED_PREFIX.as_bytes(),
             stake_window.drama_id.as_ref(),
-            stake_window.episode_id.to_le_bytes().as_ref(),
+            episode_id_bytes.as_ref(),
             &[stake_window.bump],
         ];
         let signer_seeds = &[&seeds[..]];

@@ -19,7 +19,7 @@ pub struct CloseStakeWindow<'info> {
     pub clock: Sysvar<'info, Clock>,
 }
 
-impl CloseStakeWindow {
+impl CloseStakeWindow<'_> {
     pub fn handler(ctx: Context<CloseStakeWindow>) -> Result<()> {
         let clock = Clock::get()?;
         let stake_window = &mut ctx.accounts.stake_window;

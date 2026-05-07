@@ -6,11 +6,13 @@ pub mod state;
 pub mod util;
 pub mod constants;
 use instructions::{
-    create_bonding_curve::*, initialize::*, set_params::*, swap::*, create_pool::*, lock_pool::*, add_wl::*, remove_wl::*
+    create_bonding_curve::*, initialize::*, set_params::*, swap::*, create_pool::*, lock_pool::*, add_wl::*, remove_wl::*,
+    open_stake_window::*, stake::*, close_stake_window::*, unstake::*, refund_deposit::*
 };
 use state::bonding_curve::CreateBondingCurveParams;
 use state::global::*;
-declare_id!("31CyhhHdzLaZg2L4mkwRn9ZApzhzd4LyfjxiEoght9Fw");
+use state::stake::{OpenStakeWindowParams, StakeParams};
+declare_id!("AWiK9JaGPGBjM6Zn7yB8dNf8qCXcvizxJ1zKnkEXxQpp");
 
 #[program]
 pub mod reelfun_contract {
@@ -37,7 +39,28 @@ pub mod reelfun_contract {
     }
 
     pub fn remove_wl(_ctx: Context<RemoveWl>) -> Result<()> {
+        // Account closure handled by Anchor's `close` constraint on RemoveWl
         Ok(())
+    }
+
+    pub fn open_stake_window(ctx: Context<OpenStakeWindow>, params: OpenStakeWindowParams) -> Result<()> {
+        OpenStakeWindow::handler(ctx, params)
+    }
+
+    pub fn stake(ctx: Context<Stake>, params: StakeParams) -> Result<()> {
+        Stake::handler(ctx, params)
+    }
+
+    pub fn close_stake_window(ctx: Context<CloseStakeWindow>) -> Result<()> {
+        CloseStakeWindow::handler(ctx)
+    }
+
+    pub fn unstake(ctx: Context<Unstake>) -> Result<()> {
+        Unstake::handler(ctx)
+    }
+
+    pub fn refund_deposit(ctx: Context<RefundDeposit>, params: RefundDepositParams) -> Result<()> {
+        RefundDeposit::handler(ctx, params)
     }
 
     #[access_control(ctx.accounts.validate(&params))]

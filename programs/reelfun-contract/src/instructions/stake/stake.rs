@@ -39,7 +39,7 @@ pub struct Stake<'info> {
         constraint = stake_window.bonding_curve == bonding_curve.key() @ ContractError::InvalidBondingCurve,
         bump,
     )]
-    pub stake_window: Account<'info, StakeWindow>,
+    pub stake_window: Box<Account<'info, StakeWindow>>,
 
     #[account(
         init,
@@ -52,7 +52,7 @@ pub struct Stake<'info> {
         ],
         bump,
     )]
-    pub user_stake: Account<'info, UserStake>,
+    pub user_stake: Box<Account<'info, UserStake>>,
 
     #[account(
         mut,

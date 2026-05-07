@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-reelfun_contract = "31CyhhHdzLaZg2L4mkwRn9ZApzhzd4LyfjxiEoght9Fw"
+reelfun_contract = "AWiK9JaGPGBjM6Zn7yB8dNf8qCXcvizxJ1zKnkEXxQpp"
 
 [registry]
 url = "https://api.apr.dev"

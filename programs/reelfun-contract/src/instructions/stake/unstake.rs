@@ -65,10 +65,11 @@ impl Unstake<'_> {
 
         // Transfer tokens back to user
         let stake_window = &ctx.accounts.stake_window;
+        let episode_id_bytes = stake_window.episode_id.to_le_bytes();
         let seeds = &[
             StakeWindow::SEED_PREFIX.as_bytes(),
             stake_window.drama_id.as_ref(),
-            stake_window.episode_id.to_le_bytes().as_ref(),
+            episode_id_bytes.as_ref(),
             &[stake_window.bump],
         ];
         let signer_seeds = &[&seeds[..]];

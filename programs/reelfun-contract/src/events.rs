@@ -67,6 +67,50 @@ pub struct CompleteEvent {
     pub timestamp: i64,
 }
 
+#[event]
+pub struct StakeWindowOpenedEvent {
+    pub drama_id: Pubkey,
+    pub episode_id: u64,
+    pub creator: Pubkey,
+    pub bonding_curve: Pubkey,
+    pub open_time: i64,
+    pub close_time: i64,
+}
+
+#[event]
+pub struct StakeEvent {
+    pub drama_id: Pubkey,
+    pub episode_id: u64,
+    pub user: Pubkey,
+    pub stake_amount: u64,
+    pub lock_days: u16,
+    pub stake_weight: u64,
+    pub prompt: String,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct StakeWindowClosedEvent {
+    pub drama_id: Pubkey,
+    pub episode_id: u64,
+    pub total_stake_weight: u64,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct UnstakeEvent {
+    pub user: Pubkey,
+    pub stake_amount: u64,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct DepositRefundedEvent {
+    pub user: Pubkey,
+    pub amount: u64,
+    pub timestamp: i64,
+}
+
 pub trait IntoEvent<T: anchor_lang::Event> {
     fn into_event(&self) -> T;
 }
